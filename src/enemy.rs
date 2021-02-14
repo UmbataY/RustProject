@@ -15,7 +15,7 @@ pub mod enemy {
         pub fn new(level: i32) -> Enemy {
             let new_strength:i32 = init_skill(level, 2);
             let new_agility:i32 = init_skill(level, 2);
-            let mut new_vitality:i32 = init_skill(level, 2);
+            let mut new_vitality:i32 = 30 + init_skill(level, 2);
             if new_vitality < 30 {
                 new_vitality = 30;
             }
@@ -38,6 +38,7 @@ pub mod enemy {
         pub fn get_agility(&self) -> i32 {
             return self.agility;
         }
+
         pub fn get_vitality(&self) -> i32 {
             return self.vitality;
         }
@@ -46,13 +47,15 @@ pub mod enemy {
             return &self.weapon;
         }
 
+        pub fn get_armor(&self) -> &[Armor;3] {
+            return &self.armor;
+        }
+
         pub fn deal_damage(&mut self, damage:i32, place: usize) {
             let new_damage = damage - self.armor[place].get_strength();
 
             if self.armor[place].get_strength() != 0{
-                self.armor[place].set_strength(
-                    self.armor[place].get_strength() - damage
-                );
+                self.armor[place].deal_damage(damage);
 
                 if self.armor[place].get_strength() < 0 {
                     self.armor[place].set_strength(0);

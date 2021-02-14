@@ -19,7 +19,7 @@ pub mod armor{
             }
         }
 
-        pub fn copyOf(other: &Armor) -> Armor {
+        pub fn copy_of(other: &Armor) -> Armor {
             Armor{
                 strength: other.strength.clone(),
                 price: other.price.clone()

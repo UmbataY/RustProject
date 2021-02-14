@@ -5,7 +5,7 @@
     }
 
     impl Action {
-        pub fn new(side: String, place: String) -> Action {
+        pub fn new(place: String, side: String) -> Action {
             Action {
                 place: make_actual_place(place),
                 side: make_actual_side(side),
@@ -16,8 +16,25 @@
             return self.side;
         }
 
+        pub fn get_side_string(&self) -> String {
+            match self.place {
+                0 => String::from("right"),
+                1 => String::from("left"),
+                _ => String::from("right")
+            }
+        }
+
         pub fn get_place(&self) -> i32 {
             return self.place;
+        }
+
+        pub fn get_place_string(&self) -> String {
+            match self.side {
+                0 => String::from("head"),
+                1 => String::from("body"),
+                2 => String::from("legs"),
+                _ => String::from("head")
+            }
         }
     }
 
@@ -26,7 +43,10 @@
             "head" => 0,
             "body" => 1,
             "legs" => 2,
-            _ => 0
+            _ => {
+                // println!("No such Place");
+                0
+            }
         }
     }
 
@@ -34,7 +54,10 @@
         match side.as_str() {
             "right" => 0,
             "left" => 1,
-            _ => 0
+            _ => {
+                // println!("No such Side");
+                0
+            }
         }
     }
 // }

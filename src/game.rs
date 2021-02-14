@@ -1,18 +1,15 @@
-use std::io::{stdin, Read};
-use std::thread;
-use std::time::Duration;
+use std::io::{stdin};
 use console::Term;
 use crate::battle::battle::Battle;
 use crate::player::player::Player;
 use crate::armor::armor::Armor;
 use crate::weapon::weapon::Weapon;
-use std::borrow::BorrowMut;
 
 pub struct Game {
     terminal:Term,
     player:Player,
-    shopWeapon:[Weapon;3],
-    shopArmor:[Armor;3]
+    shop_weapon:[Weapon;3],
+    shop_armor:[Armor;3]
 }
 
 impl Game {
@@ -20,11 +17,11 @@ impl Game {
         Game {
             terminal: Term::stdout(),
             player: Player::new(),
-            shopWeapon:[
+            shop_weapon:[
                 Weapon::new(1),
                 Weapon::new(1),
                 Weapon::new(1)],
-            shopArmor:[
+            shop_armor:[
                 Armor::new(1),
                 Armor::new(1),
                 Armor::new(1)]
@@ -37,11 +34,11 @@ impl Game {
         // stdin().read_line(&mut s);
         let mut result: bool = true;
         loop {
-            self.shopWeapon = [
+            self.shop_weapon = [
                 Weapon::new(self.player.get_level()),
                 Weapon::new(self.player.get_level()),
                 Weapon::new(self.player.get_level())];
-            self.shopArmor = [
+            self.shop_armor = [
                 Armor::new(self.player.get_level()),
                 Armor::new(self.player.get_level()),
                 Armor::new(self.player.get_level())];
@@ -112,15 +109,15 @@ impl Game {
         // }
         match input.chars().nth(0).unwrap() {
             '1' => {
-                self.increaseSkill('1');
+                self.increase_skill('1');
                 self.print_skill_menu();
             },
             '2' => {
-                self.increaseSkill('2');
+                self.increase_skill('2');
                 self.print_skill_menu();
             },
             '3' => {
-                self.increaseSkill('3');
+                self.increase_skill('3');
                 self.print_skill_menu();
             },
             '4' => {
@@ -130,7 +127,7 @@ impl Game {
         }
     }
 
-    fn increaseSkill(&mut self, skill: char) {
+    fn increase_skill(&mut self, skill: char) {
         if self.player.get_skill_points() > 0 {
             self.player.spend_skillpoint();
             match skill {
@@ -148,9 +145,9 @@ impl Game {
         self.terminal.clear_screen();
         println!("Armor shop");
         println!();
-        println!("1(head) :{}, price: {}", self.shopArmor[0].get_strength(), self.shopArmor[0].get_price());
-        println!("2(body) :{}, price: {}", self.shopArmor[1].get_strength(), self.shopArmor[1].get_price());
-        println!("3(legs) :{}, price: {}", self.shopArmor[2].get_strength(), self.shopArmor[2].get_price());
+        println!("1(head) :{}, price: {}", self.shop_armor[0].get_strength(), self.shop_armor[0].get_price());
+        println!("2(body) :{}, price: {}", self.shop_armor[1].get_strength(), self.shop_armor[1].get_price());
+        println!("3(legs) :{}, price: {}", self.shop_armor[2].get_strength(), self.shop_armor[2].get_price());
         println!("You have {} gold", self.player.get_gold());
         println!();
         println!();
@@ -158,10 +155,10 @@ impl Game {
         println!("Your armor:");
         println!();
         println!();
-        let playerArmor = self.player.get_armor();
-        println!("head :{}", playerArmor[0].get_strength());
-        println!("body :{}", playerArmor[1].get_strength());
-        println!("legs :{}", playerArmor[2].get_strength());
+        let player_armor = self.player.get_armor();
+        println!("head :{}", player_armor[0].get_strength());
+        println!("body :{}", player_armor[1].get_strength());
+        println!("legs :{}", player_armor[2].get_strength());
 
 
         println!();
@@ -189,9 +186,9 @@ impl Game {
     }
 
     fn buy_armor(&mut self, armor: usize) {
-        if self.shopArmor[armor].get_price() <=  self.player.get_gold() {
-            self.player.set_armor(armor, Armor::copyOf(&self.shopArmor[armor]));
-            self.player.spend_gold(self.shopArmor[armor].get_price());
+        if self.shop_armor[armor].get_price() <=  self.player.get_gold() {
+            self.player.set_armor(armor, Armor::copy_of(&self.shop_armor[armor]));
+            self.player.spend_gold(self.shop_armor[armor].get_price());
         } else {
             println!("You do not have enough money");
         }
@@ -200,9 +197,9 @@ impl Game {
     fn print_weapon_menu(&mut self) {
         self.terminal.clear_screen();
         println!("Weapon shop");
-        println!("1 :{}, price: {}", self.shopWeapon[0].get_damage(), self.shopWeapon[0].get_price());
-        println!("2 :{}, price: {}", self.shopWeapon[1].get_damage(), self.shopWeapon[0].get_price());
-        println!("3 :{}, price: {}", self.shopWeapon[2].get_damage(), self.shopWeapon[0].get_price());
+        println!("1 :{}, price: {}", self.shop_weapon[0].get_damage(), self.shop_weapon[0].get_price());
+        println!("2 :{}, price: {}", self.shop_weapon[1].get_damage(), self.shop_weapon[0].get_price());
+        println!("3 :{}, price: {}", self.shop_weapon[2].get_damage(), self.shop_weapon[0].get_price());
         println!("You have {} gold", self.player.get_gold());
         println!();
         println!();
@@ -210,8 +207,8 @@ impl Game {
         println!("Your Weapon:");
         println!();
         println!();
-        let playerWeapon = self.player.get_weapon();
-        println!("weapon: {}", playerWeapon.get_damage());
+        let player_weapon = self.player.get_weapon();
+        println!("weapon: {}", player_weapon.get_damage());
         println!("4 - Back to main menu");
 
         let mut input: String = String::from("");
@@ -235,9 +232,9 @@ impl Game {
     }
 
     fn buy_weapon(&mut self, weapon: usize) {
-        if self.shopWeapon[weapon].get_price() <=  self.player.get_gold(){
-            self.player.set_weapon(Weapon::copyOf(&self.shopWeapon[weapon]));
-            self.player.spend_gold(self.shopWeapon[weapon].get_price());
+        if self.shop_weapon[weapon].get_price() <=  self.player.get_gold(){
+            self.player.set_weapon(Weapon::copy_of(&self.shop_weapon[weapon]));
+            self.player.spend_gold(self.shop_weapon[weapon].get_price());
         } else {
             println!("You do not have enough money");
         }

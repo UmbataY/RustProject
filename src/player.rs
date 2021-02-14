@@ -1,7 +1,6 @@
 pub mod player {
     use crate::armor::armor::Armor;
     use crate::weapon::weapon::Weapon;
-    use rand::Rng;
 
     #[derive(Clone)]
     pub struct Player {
@@ -67,8 +66,8 @@ pub mod player {
             return &self.weapon;
         }
 
-        pub fn set_weapon(&mut self, newWeapon: Weapon) {
-            self.weapon = newWeapon;
+        pub fn set_weapon(&mut self, new_weapon: Weapon) {
+            self.weapon = new_weapon;
         }
 
         pub fn increase_level(&mut self) {
@@ -83,9 +82,9 @@ pub mod player {
             self.agility = self.agility + 1;
         }
 
-        pub fn set_vitality(&mut self, vitality: i32) {
-            return self.vitality = vitality;
-        }
+        // pub fn set_vitality(&mut self, vitality: i32) {
+        //     return self.vitality = vitality;
+        // }
 
         pub fn increase_vitality(&mut self) {
             self.vitality = self.vitality + 1;
@@ -107,17 +106,15 @@ pub mod player {
             self.skill_points = self.skill_points - 1;
         }
 
-        pub fn set_armor(&mut self, place: usize, newArmor: Armor) {
-            return self.armor[place] = newArmor;
+        pub fn set_armor(&mut self, place: usize, new_armor: Armor) {
+            return self.armor[place] = new_armor;
         }
 
         pub fn deal_damage(&mut self, damage:i32, place:usize) {
             let new_damage = damage - self.armor[place].get_strength();
 
             if self.armor[place].get_strength() != 0{
-                self.armor[place].set_strength(
-                    self.armor[place].get_strength() - damage
-                );
+                self.armor[place].deal_damage(damage);
 
                 if self.armor[place].get_strength() < 0 {
                     self.armor[place].set_strength(0);
@@ -137,12 +134,12 @@ pub mod player {
 
     }
 
-    fn init_skill(level: i32, diff: i32) -> i32 {
-        let mut skill:i32 = rand::thread_rng().gen_range(level - diff .. level + diff);
-        if skill <= 0 {
-            skill = 1;
-        }
-
-        return skill;
-    }
+    // fn init_skill(level: i32, diff: i32) -> i32 {
+    //     let mut skill:i32 = rand::thread_rng().gen_range(level - diff .. level + diff);
+    //     if skill <= 0 {
+    //         skill = 1;
+    //     }
+    //
+    //     return skill;
+    // }
 }

@@ -22,7 +22,7 @@ pub mod weapon{
             }
         }
 
-        pub fn copyOf(other: &Weapon) -> Weapon {
+        pub fn copy_of(other: &Weapon) -> Weapon {
             Weapon{
                 name: other.name.clone(),
                 damage: other.damage.clone(),

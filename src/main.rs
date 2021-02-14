@@ -5,45 +5,30 @@ mod player;
 mod weapon;
 mod game;
 mod action;
+mod test;
 
-use std::io::{stdin, Read};
-use std::thread;
-use std::time::Duration;
-use console::Term;
-use crate::battle::battle::Battle;
-use crate::player::player::Player;
-use crate::armor::armor::Armor;
-use crate::weapon::weapon::Weapon;
-use crate::game::Game;
+// #[macro_use]
+// extern crate lazy_static;
 
-// use crate::player::player::Player;
-//
-// use battle::battle::*;
-#[macro_use]
-extern crate lazy_static;
+// lazy_static! {
+//     static ref player1:Player = player::player::Player::new();
+//     static ref terminal:Term = Term::stdout();
+// }
 
-lazy_static! {
-    static ref player1:Player = player::player::Player::new();
-    static ref terminal:Term = Term::stdout();
-    // static ref mut shopWeapon:[Weapon;3] = [
-    //         Weapon::new(1),
-    //         Weapon::new(1),
-    //         Weapon::new(1)];
-    // static ref mut shopArmor:[Armor;3] = [];
-
-}
-
-
-// static player:&Player = &player::player::Player::new();
-// static mut terminal:Term = Term::stdout();
 fn main() {
-    let mut level = 0;
-    let mut gold = 100;
-    let mut skill_points = 3;
+    // let mut level = 0;
+    // let mut gold = 100;
+    // let mut skill_points = 3;
+
+    // let a = 23;
+    //
+    // let b = a as f32 * 0.5;
+    //
+    // println!("Test: {}",b as i32);
 
     // let player = &player::player::Player::new();
     // let terminal = Term::stdout();
-    let mut battle:Battle;
+    // let mut battle:Battle;
 
     // terminal = Term::stdout();
     // terminal.write_line("Hello World!");
