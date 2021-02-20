@@ -1,11 +1,14 @@
 pub mod battle {
+    use console::Term;
     use crate::enemy::enemy::Enemy;
     use crate::player::player::Player;
     use crate::action::Action;
     use rand::Rng;
     use std::io::stdin;
+    use std::{thread, time};
 
     pub struct Battle {
+        terminal:Term,
         player: Player,
         enemy: Enemy
     }
@@ -14,6 +17,7 @@ pub mod battle {
         pub fn new(player: Player, level: i32) -> Battle {
             let enemy= Enemy::new(level);
             Battle {
+                terminal: Term::stdout(),
                 player,
                 enemy
             }
@@ -25,6 +29,7 @@ pub mod battle {
             }
 
             while self.are_both_alive() {
+                self.terminal.clear_screen();
                 let actions:[Action; 3];
 
                 self.print_characters_info();
@@ -74,6 +79,10 @@ pub mod battle {
                 }
 
                 turn = !turn;
+
+                println!();
+                println!("Press any key to continue to next round.");
+                stdin().read_line(&mut String::from(""));
             }
 
             let mut result = true;
