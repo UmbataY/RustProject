@@ -34,6 +34,7 @@ pub mod battle {
 
                 self.print_characters_info();
 
+                println!("Generating attacks");
                 if turn {
                     println!("You attack");
                     actions = self.generate_enemy_defence()
@@ -125,19 +126,6 @@ pub mod battle {
             println!("Input your actions");
             println!();
             // let mut player_actions:Vec<Action> = Vec::new();
-
-            // for i in 0..=2 {
-            //     stdin().read_line(&mut input);
-            //     stdin().read_line(&mut input2);
-            //     input.remove(input.len() - 1);
-            //     input2.remove(input2.len() - 1);
-            //
-            //     player_actions.push(Action::new(input.clone(), input2.clone()));
-            //     // player_actions[i] = ;
-            // }4
-
-            //
-            // return player_actions.as;
 
             //action 1
             let mut input = String::new();

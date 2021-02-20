@@ -17,7 +17,7 @@
         }
 
         pub fn get_side_string(&self) -> String {
-            match self.place {
+            match self.side {
                 0 => String::from("right"),
                 1 => String::from("left"),
                 _ => String::from("right")
@@ -29,7 +29,7 @@
         }
 
         pub fn get_place_string(&self) -> String {
-            match self.side {
+            match self.place {
                 0 => String::from("head"),
                 1 => String::from("body"),
                 2 => String::from("legs"),
@@ -44,7 +44,7 @@
             "body" => 1,
             "legs" => 2,
             _ => {
-                // println!("No such Place");
+                println!("No such Place");
                 0
             }
         }
@@ -55,7 +55,7 @@
             "right" => 0,
             "left" => 1,
             _ => {
-                // println!("No such Side");
+                println!("No such Side");
                 0
             }
         }
